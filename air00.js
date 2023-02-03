@@ -21,12 +21,12 @@ let error = (arg1,arg2) => {
 
 
 // mes fonctions : 
-let fonction_split = (aSpliter , separateur) => {
-    separateur = /[\s,\t,\r]/ ;
+let fonction_split = (aSpliter , separateur) => {            // le séparateur ici ne sert a rien??? consigne confuse ? 
+    separateur = /[\s,\t,\r]/ ;                              // regex pour séparateur, et non pas un argument.
     let indexRepere =0
     for (let i=0 ; i < aSpliter.length ; i++) {
-        if (separateur.test(aSpliter[i])) {
-            finalArray.push(aSpliter.slice(indexRepere,i))
+        if (separateur.test(aSpliter[i])) {                      // si un élément passe par le regex (donc espace, retour a la ligne, tabulation)
+            finalArray.push(aSpliter.slice(indexRepere,i))       // on push dans le tableau final un slice depuis l'index repère jusqu'à i non inclu
             indexRepere=i+1
         }
     }
