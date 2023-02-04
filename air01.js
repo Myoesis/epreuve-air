@@ -8,7 +8,16 @@
 // Déclarer mes variables :
 let argACouper = process.argv[2]
 let separateur = process.argv[3]
+let argumentTotal = process.argv.slice(2)
 
+// Gérer les erreurs :
+
+let error = (arg) => {
+    if (arg.length!==2) {
+        console.log(" il y a trop ou pas assez d'arguments")
+        process.exit()
+    }
+}
 
 // mes fonctions : 
 
@@ -50,5 +59,6 @@ let fonction_split = (arrayToSplit , separateur) => {         // ATTENTION : ce 
 
 // appelle des fonctions : 
  
+error(argumentTotal)
  // on utilise le resultat de la premiere fonction(qui a utilisé le argACouper) comme premier argument
 fonction_split(creatArray(argACouper), separateur)            
