@@ -25,15 +25,15 @@ let error = (argumentPassé) => {
 
 // mes fonctions : 
 let creatArgArray =(argumentPassé)=> {
-    return argumentPassé.slice(0,argumentPassé.length)                 // On créer le tableau contenant tout les arguments sauf le dernier
-}
+    return argumentPassé.slice(0,argumentPassé.length)         // On créer le tableau contenant tout les arguments sauf le dernier
+}                                                              // ATTENTION : ne pas utiliser .pop(), ça détruit le dernier element du tableau, et donc le separateur
 
 let creatSeparateur =(argumentPassé) => {
-    let separateur = argumentPassé[argumentPassé.length-1]            // On créer le separateur à partir du dernier element du tableau
+    let separateur = argumentPassé[argumentPassé.length-1]    // On créer le separateur à partir du dernier element du tableau
     return separateur
 }
 
-let concat = (argArray,separateur) => {                               // On créer la string final en ajoutant chaque element du tableau suivi du séparateur.
+let concat = (argArray,separateur) => {                       // On créer la string final en ajoutant chaque element du tableau suivi du séparateur.
     for (let i=0 ; i< argArray.length-1 ; i++) {
         finalString += argArray[i] + separateur
     }
