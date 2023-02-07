@@ -10,7 +10,12 @@ let discriminant = argArray[argArray.length-1]
 
  
 // gestions des erreurs :
-
+let error =(argArray) => {
+    if (argArray.length < 2) {
+        console.log("manque d'argument")
+        process.exit()
+    }
+}
 
 
 // mes fonctions : 
@@ -29,4 +34,5 @@ let monRegex = (tabArgu , stringAChercher) => {
 
 
 // appelle des fonctions : 
+error(argArray)
 monRegex(argArray,discriminant)
