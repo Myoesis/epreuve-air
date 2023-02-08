@@ -7,6 +7,7 @@
 
 // Déclarer mes variables :
 let tableauTrié = process.argv.slice(2,process.argv.length-1)
+let regexDigit = /\D/
 
 
 // gestions des erreurs :
@@ -26,7 +27,10 @@ let error =(tabTrié)=>{
             console.log("ton tableau n'est pas trié ! Il devrait être comme suit :" + tabTrié)
 
             process.exit()
-        } 
+        } else if (regexDigit.test(tabTrié[i])) {
+            console.log("Ca doit n'être que des nombres")
+            process.exit()
+        }
     }
         console.log("ça a l'air trié")
 }
@@ -34,7 +38,7 @@ let error =(tabTrié)=>{
 
 // mes fonctions : 
 let jeRangePourToi = (tabTrié , àTrier) => {
-    
+
 }
 
 
