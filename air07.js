@@ -40,13 +40,13 @@ let error =(tabTrié,àTrier)=>{
 
 
 // mes fonctions : 
-let jeRangePourToi = (tabTrié , àTrier) => {
+let jeRangePourToi = (tabTrié , àTrier) => {                                        // Solution 1 : push puis re trier
     tabTrié.push(àTrier)
     for (let i=0 ; i<tabTrié.length ; i++) {
         if (parseInt(tabTrié[i])>parseInt(tabTrié[i+1])) {
-            for (let i = 0 ; i< tabTrié.length ; i++) {                   // boucle 1 pour recommencer la boucle 2 plusieurs fois en avancant d'un index à chaque fois 
-                let min=i                                               // on utilise min comme un index, et on comparera les nombres en utilisant leurs index
-                for (let j=i ; j < tabTrié.length ; j++) {                // Boucle 2 : comparer les nombres, et garder en min l'index du plus petit
+            for (let i = 0 ; i< tabTrié.length ; i++) {                  
+                let min=i                                               
+                for (let j=i ; j < tabTrié.length ; j++) {              
                     if (parseInt(tabTrié[j])<parseInt(tabTrié[min])) {
                         min=j
                     }
@@ -58,10 +58,26 @@ let jeRangePourToi = (tabTrié , àTrier) => {
     }    
 }
 
+let jeRangeEncore = (tabTrié , àTrier) => {                                                        // solution 2 : insérer direct
+    let indexInsert=0
+    for(let i=0 ; i< tabTrié.length ; i++){
+        if(parseInt(tabTrié[i])<parseInt(àTrier) && parseInt(àTrier)<parseInt(tabTrié[i+1])) {     // vérifier où se situerait l'élément à insérer
+            indexInsert = `${i+1}`                                                                 // assigner son index
+        } else if (parseInt(àTrier)<parseInt(tabTrié[0])) {
+            indexInsert = 0
+        } else if (parseInt(àTrier)>parseInt(tabTrié[tabTrié.length-1])) {
+            indexInsert = tabTrié.length
+        }
+    }
+    tabTrié.splice(indexInsert,0,àTrier)                                                           // splice insert selon 3 critères :
+    console.log(tabTrié)                                                                           // l'index à partir duquel on veut insérer 
+}                                                                                                  // le nombre d'élements à supprimer  
+                                                                                                   // l'élément à ajouter
 
 
 
 
 // appelle des fonctions : 
 error(tableauTrié,àTrier)
-jeRangePourToi(tableauTrié,àTrier)
+jeRangeEncore(tableauTrié,àTrier)
+//jeRangePourToi(tableauTrié,àTrier)
