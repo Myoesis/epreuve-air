@@ -8,11 +8,28 @@
 
 // Déclarer mes variables : 
 let tab=process.argv.slice(2)
+let regexDigit = /\D(fusion)?/ // regex qui prend les chiffres ET le mot fusion ? si possible, on peut le placer dans la boucle error
 
 
 // gestions des erreurs :
-
-
+let error = (argumentPassé, newArray) => {
+    // gestion si argument vide
+    if(tab.length === 0){
+        console.log("il faut donner des infos !")
+        process.exit()
+    }
+    //gestion si absence du fusion en argument
+    let fusion = false
+    for (let i=0 ; i < argumentPassé.length ; i++ ) {
+        if(argumentPassé[i]=== "fusion"){
+            fusion=true
+        }
+    }
+    if (!fusion) {
+        console.log("il faut diviser le tableau avec le mot fusion")
+        process.exit() 
+    } 
+}
 
 // mes fonctions : 
 let creatArray1 = (arrayNonMixé) => {
@@ -58,4 +75,5 @@ console.log(newArray)
 
 
 // appelle des fonctions : 
+error(tab)
 sorted_fusion(creatArray1(tab),creatArray2(tab))
