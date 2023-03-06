@@ -10,7 +10,18 @@ let arrayToSort= process.argv.slice(2)
 
 
 // gestions des erreurs :
-
+let error = (array) => {
+    if (array.length ===0){
+        console.log("tu dois entrer quelque chose")
+        process.exit()
+    }
+    for (let i=0; i< array.length; i++) {
+        if(isNaN(array[i])) {
+            console.log("tu ne dois entrer que des chiffres")
+            process.exit()
+        }
+    }
+}
 
 
 // mes fonctions :  
@@ -25,27 +36,29 @@ let findPivot = (array) => {
             min = parseInt(array[i])
         }
     }
-    let pivot = (max+min) >> 1                 // >>1 permet en gros de diviser par 2. J'ai pas encore trop compris pourquoi
+    let pivot = Math.floor((max + min) / 2)                
     return pivot
 }
 
-let quickSort = (array) => {
-    let array1 = []
-    let array2 = []
-    for (let i =0 ; i<array.length ; i++) {
-        if (parseInt(array[i])>findPivot(array)) {
-            array2.push(parseInt(array[i]))
-        } else {
-            array1.push(parseInt(array[i]))
+let quickSort = (array) => {                                 
+   if (array.length <=1) {
+    return array
+    } else {
+        let pivot = findPivot(array)
+        let array1=[]
+        let array2=[]
+        for (let i=0 ; i<array.length ; i++) {
+            if (parseInt(array[i])<pivot){
+                array1.push(array[i])
+            } else {
+                array2.push(array[i])
+            }
         }
+    array2 = quickSort(array2)
+    array1 = quickSort(array1)
+    return array1.concat(array2)
     }
-    if (array1)
-    array = array1.concat(array2)
-    console.log(array)
-
 }
-
-
 
 
 
@@ -53,5 +66,6 @@ let quickSort = (array) => {
 
 
 // appelle des fonctions : 
+error(arrayToSort)
 findPivot(arrayToSort)
-quickSort(arrayToSort)
+console.log(quickSort(arrayToSort))
