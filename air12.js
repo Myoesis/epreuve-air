@@ -60,7 +60,9 @@ let quickSort = (array) => {
     }
 }
 
-
+// comment ca marche : d'abors coder la condition de sortie avec un if (ca doitêtre la premiere chose à tester pour éviter qu'on ne crée une boucle infini)
+// ensuite, si la condition de sortie n'est pas respecté : coder la fonction que l'on souhaite, et en fin de else, rappeler la fonction avec un nouvel élément, 
+// puis seulement return le résultat pour que ça remonte au fur et à mesure dans les fonctions.
 
 
 
@@ -68,4 +70,4 @@ let quickSort = (array) => {
 // appelle des fonctions : 
 error(arrayToSort)
 findPivot(arrayToSort)
-console.log(quickSort(arrayToSort))
+console.log(quickSort(arrayToSort))           // pas convaincu du log d'une fonction, mais j'ai pas trouvé d'alternative
