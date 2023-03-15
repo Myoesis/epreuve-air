@@ -15,8 +15,8 @@ let finalString =""
 
 // gestions des erreurs :
 let error = (argumentPassé) => {
-    if (argumentPassé.length < minimumArguments) {                      // il faut au mmoins 2 arg à séparer par 1 séparateur
-        console.log("pas assez d'argument mon grand !")
+    if (argumentPassé.length < 3) {                      // il faut au mmoins 2 arg à séparer par 1 séparateur
+        console.log("error 02")
         process.exit()
     }
 }
@@ -37,11 +37,22 @@ let concat = (argArray,separateur) => {                       // On créer la st
     for (let i=0 ; i< argArray.length-1 ; i++) {
         finalString += argArray[i] + separateur
     }
-    console.log(finalString)
+    return finalString
+}
+
+let fonctionConcat = (toutLesArguments) => {
+    error(toutLesArguments)
+    return concat(creatArgArray(toutLesArguments),creatSeparateur(toutLesArguments))
 }
 
 
-
-// appelle des fonctions : 
-error(argumentTotal)
-concat(creatArgArray(argumentTotal),creatSeparateur(argumentTotal))
+if (require.main === module) {
+    const arguments = process.argv.slice(2)
+    if (error(arguments)=== "error 02") {
+        console.log("error 02")
+        process.exit(1)
+    }
+    console.log(fonctionConcat(arguments))
+} else {
+    module.exports= {fonctionConcat}
+}
