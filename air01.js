@@ -5,21 +5,14 @@
 //          step 2 : boucle et quand séparateur === un élément du tableau, slice depuis indexRepere jusque i, et réassigner indexRepere a i
 
 
-// Déclarer mes variables :
-let argACouper = process.argv[2]
-let separateur = process.argv[3]
-let argumentTotal = process.argv.slice(2)
 
-// Gérer les erreurs :
 
 let error = (arg) => {
     if (arg.length!==2) {
-        console.log(" il y a trop ou pas assez d'arguments")
-        process.exit()
+        return "error 01"
     }
 }
 
-// mes fonctions : 
 
 // d'abord créer un tableau avec les éléments de l'argument passé, cf exercice précedent, qui servira à split par la suite
 let creatArray = (aTrier) => {
@@ -32,11 +25,9 @@ let creatArray = (aTrier) => {
             indexRepere=i+1
         }
     }
-
     if(indexRepere < aTrier.length) {
         arrayToSplit.push(aTrier.slice(indexRepere))
-    }
-    
+    }   
     return arrayToSplit
 }
 
@@ -53,12 +44,24 @@ let fonction_split = (arrayToSplit , separateur) => {         // ATTENTION : ce 
     if (indexRepere < arrayToSplit.length) {
         finalArray.push(arrayToSplit.slice(indexRepere))
     }
-    console.log(finalArray)
+    return finalArray
+}
+
+let splitEnFonction =(arguments13) => {
+    error(arguments13)
+    return fonction_split(creatArray(arguments13[0]),arguments13[1])              // peut-etre définir 2 éléments dans la fonction? 
 }
 
 
 // appelle des fonctions : 
- 
-error(argumentTotal)
- // on utilise le resultat de la premiere fonction(qui a utilisé le argACouper) comme premier argument
-fonction_split(creatArray(argACouper), separateur)            
+
+if (require.main === module) {
+    const arguments = process.argv.slice(2)
+    if (error(arguments)=== "error 01") {
+        console.log("error 01")
+        process.exit(1)
+    }
+    console.log(splitEnFonction(arguments))
+} else {
+    module.exports= {splitEnFonction}
+}
