@@ -4,21 +4,12 @@
 // Pistes : double boucle, si arg[i] ===
 
 
-// Déclarer mes variables :
-let argumentPassé = process.argv.slice(2)
-
-
-
-// gestions des erreurs :
 let error = (argumentPassé) => {
     if (argumentPassé.length < 1) {
         return "error 03"
     }
 }
 
-
-
-// mes fonctions : 
 let intru = (argArray) => {
     for (let i =0 ; i < argArray.length-1 ; i ++) {
         let pairé = false
@@ -38,8 +29,6 @@ let fonctionIntru = (arguments) => {
     error(arguments)
     return intru(arguments)
 }
-error(argumentPassé)
-intru(argumentPassé)
 
 if (require.main === module) {
     const arguments = process.argv.slice(2)
