@@ -12,8 +12,7 @@ let argumentPassé = process.argv.slice(2)
 // gestions des erreurs :
 let error = (argumentPassé) => {
     if (argumentPassé.length < 1) {
-        console.log("error")
-        process.exit()
+        return "error 03"
     }
 }
 
@@ -29,12 +28,26 @@ let intru = (argArray) => {
             }
         }
         if (pairé===false) {
-            console.log (argArray[i])
+            return argArray[i]
         }
     }
 }
 
 
-// appelle des fonctions : 
+let fonctionIntru = (arguments) => {
+    error(arguments)
+    return intru(arguments)
+}
 error(argumentPassé)
 intru(argumentPassé)
+
+if (require.main === module) {
+    const arguments = process.argv.slice(2)
+    if (error(arguments)=== "error 03") {
+        console.log("error 03")
+        process.exit(1)
+    }
+    console.log(fonctionIntru(arguments))
+} else {
+    module.exports= {fonctionIntru}
+}
