@@ -5,22 +5,18 @@
 
 
 // Déclarer mes variables :
-let argArray = process.argv.slice(2)
-let àAppliquer = argArray[argArray.length-1]
-let regexDigit = /\D/ ; 
 
 
 
 // gestions des erreurs :
 let error = (tabArgu) => {
+    let regexDigit = /[^\d\+\-]/ ; 
     if (tabArgu.length < 2) {
-        console.log("tu manques d'arguments")
-        process.exit()
+        return "error 05.1"
     } else {
-    for (let i=0 ; i<tabArgu.length ; i++) {
-        if(regexDigit.test(tabArgu[i])) {
-            console.log("error")
-            process.exit()
+        for (let i=0 ; i<tabArgu.length ; i++) {
+            if(regexDigit.test(tabArgu[i])) {
+                return "error 05.2"
             }
         }
     }
@@ -34,12 +30,24 @@ let forEach =(tabArgu , àAppliquer) => {
         let result = parseInt(tabArgu[i]) + parseInt(àAppliquer)
         resultats.push(result)
     } 
-    console.log(resultats)
+    return resultats
 
 }
 
+let operation = (arguments) => {
+    let àAppliquer = arguments[arguments.length-1]
+    error(arguments)
+    return forEach(arguments,àAppliquer)
+}
+ 
 
-
-// appelle des fonctions : 
-error(argArray)
-forEach(argArray, àAppliquer)
+if (require.main === module) {
+    const arguments = process.argv.slice(2)
+    if (error(arguments)=== "error 05.1" || error(arguments)==="error 05.2") {
+        console.log("error 05")
+        process.exit(1)
+    }
+    console.log(operation(process.argv.slice(2)))
+} else {
+    module.exports= {noDouble}
+}
