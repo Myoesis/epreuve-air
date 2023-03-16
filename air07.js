@@ -2,41 +2,39 @@
 //un nouvel entier tout en gardant la liste triée dans l’ordre croissant. Le dernier argument est l’élément à ajouter.
 
 
-// Pistes : 
-
-
-// Déclarer mes variables :
-let tableauTrié = process.argv.slice(2,process.argv.length-1)
-let àTrier = process.argv[process.argv.length-1]
-let regexDigit = /\D/
-
 
 // gestions des erreurs :
-let error =(tabTrié,àTrier)=>{
-    for (let i=0 ; i < tabTrié.length ; i++) {
-        if (parseInt(tabTrié[i])>parseInt(tabTrié[i+1])) {
-            for (let i = 0 ; i< tabTrié.length ; i++) {                   // boucle 1 pour recommencer la boucle 2 plusieurs fois en avancant d'un index à chaque fois 
-                let min=i                                               // on utilise min comme un index, et on comparera les nombres en utilisant leurs index
-                for (let j=i ; j < tabTrié.length ; j++) {                // Boucle 2 : comparer les nombres, et garder en min l'index du plus petit
-                    if (parseInt(tabTrié[j])<parseInt(tabTrié[min])) {
-                        min=j
-                    }
-                } 
-                [tabTrié[i],tabTrié[min]] = [tabTrié[min],tabTrié[i]]            // Remplacer le premier nombre (tabTrié[i]) par le plus petit nombre (tabTrié[min])
-        
-            }
-            console.log("ton tableau n'est pas trié ! Il devrait être comme suit :" + tabTrié)
 
-            process.exit()
-        } else if (regexDigit.test(tabTrié[i])) {
-            console.log("Ca doit n'être que des nombres")
-            process.exit()
-        } else if (regexDigit.test(àTrier)) {
-            console.log("on doit classer un chiffre !")
-            process.exit()
+let error = (arguments) => {
+    for (let i = 0; i < arguments.length; i++) {
+        if (isNaN(arguments[i])) {
+            return "error 07";
         }
     }
-}
+    if (arguments.length < 2) {
+        return "error 07";
+    }
+
+    let tabTrié = arguments.slice(0, arguments.length - 1);
+    for (let i = 0; i < tabTrié.length; i++) {
+        let min = i;
+        for (let j = i + 1; j < tabTrié.length; j++) {
+            if (parseInt(tabTrié[j]) < parseInt(tabTrié[min])) {
+                min = j;
+            }
+        }
+        if (min !== i) {
+            [tabTrié[i], tabTrié[min]] = [tabTrié[min], tabTrié[i]];
+        }
+    }
+
+    for (let i = 0; i < arguments.length - 1; i++) {
+        if (parseInt(arguments[i]) !== parseInt(tabTrié[i])) {
+            return `ton tableau n'est pas trié ! Il devrait être comme suit : ${tabTrié}`;
+        }
+    }
+};
+
 
 
 // mes fonctions : 
@@ -70,14 +68,21 @@ let jeRangeEncore = (tabTrié , àTrier) => {                                   
         }
     }
     tabTrié.splice(indexInsert,0,àTrier)                                                           // splice insert selon 3 critères :
-    console.log(tabTrié)                                                                           // l'index à partir duquel on veut insérer 
+    return tabTrié                                                                    // l'index à partir duquel on veut insérer 
 }                                                                                                  // le nombre d'élements à supprimer  
                                                                                                    // l'élément à ajouter
 
+let InsertEtTri =(arguments) => {
+    let tabTrié= arguments.slice(0,arguments.length-1)
+    let àTrier = arguments[arguments.length-1]
+    errorMessage = error(arguments)
+    return errorMessage ? errorMessage : jeRangeEncore(tabTrié, àTrier) 
+}
 
 
-
-// appelle des fonctions : 
-error(tableauTrié,àTrier)
-jeRangeEncore(tableauTrié,àTrier)
-//jeRangePourToi(tableauTrié,àTrier)
+if (require.main === module) {
+    const arguments = process.argv.slice(2)
+    console.log(InsertEtTri(arguments))
+} else {
+    module.exports= {InsertEtTri}
+}
