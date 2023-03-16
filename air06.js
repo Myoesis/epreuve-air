@@ -12,15 +12,14 @@ let discriminant = argArray[argArray.length-1]
 // gestions des erreurs :
 let error =(argArray) => {
     if (argArray.length < 2) {
-        console.log("manque d'argument")
-        process.exit()
+        return "error 06"
     }
 }
 
 
 // mes fonctions : 
 
-let monRegex = (tabArgu , stringAChercher) => {
+let monRegex = (tabArgu , stringAChercher) => {                                              // Il faudrait qu'un lettre soit prise en compte en majuscule ET minuscule
     let çaPasse =""
     for (let i=0 ; i< tabArgu.length-1 ; i++){
         let index = tabArgu[i].indexOf(stringAChercher[0])
@@ -28,11 +27,22 @@ let monRegex = (tabArgu , stringAChercher) => {
             çaPasse += `${tabArgu[i]} `
         }
     }
-    console.log(çaPasse)
+    return çaPasse
 }
 
+let regexPerso = (argument) => {
+    let stringAChercher = argument[argument.length-1]
+    error(argument)
+    return monRegex(argument,stringAChercher)
+}
 
-
-// appelle des fonctions : 
-error(argArray)
-monRegex(argArray,discriminant)
+if (require.main === module) {
+    const arguments = process.argv.slice(2)
+    if (error(arguments)=== "error 06") {
+        console.log("error 06")
+        process.exit(1)
+    }
+    console.log(regexPerso(arguments))
+} else {
+    module.exports= {regexPerso}
+}
