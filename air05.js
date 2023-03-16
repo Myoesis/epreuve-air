@@ -49,5 +49,5 @@ if (require.main === module) {
     }
     console.log(operation(process.argv.slice(2)))
 } else {
-    module.exports= {noDouble}
+    module.exports= {operation}
 }
