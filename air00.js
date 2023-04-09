@@ -2,13 +2,8 @@
 //Créez un programme qui découpe une chaîne de caractères en tableau (séparateurs : espaces, tabulations, retours à la ligne).
 
 
-// Pistes : On va utiliser les regex ! espace tabulation et retour à la ligne --> \s \t \r
-
-
-//Déclarer mes variables :
-
 let error = (args) => {
-    if(args.length!=1) {
+    if(!isNaN(args) || !args) {
         return "error"
     }
 }
@@ -29,22 +24,24 @@ let fonction_split = (aSpliter) => {                             // le séparate
     return finalArray
 }
 
-let maFonctionSplit =(arguments) => {
 
-error(arguments)
-return fonction_split(arguments)
- 
+let maFonctionSplit =(arguments) => {
+    if(error(arguments)) {
+        return error
+    }
+    return fonction_split(arguments)
 }    
 
 
-// appelle des fonctions : 
+// bloc qui définis si le fichier est executé depuis le terminal ou depuis un autre fichier
 if (require.main === module) {
     const arguments = process.argv.slice(2)
     if (error(arguments) === "error") {
         console.log("error")
         process.exit()
-    }
+    } else{
     console.log(maFonctionSplit(arguments[0]))
+    }
 } else {
     module.exports ={maFonctionSplit
                 }
